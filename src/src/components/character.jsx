@@ -18,7 +18,7 @@ const Character = () => {
     const dataQuo = await getQuotes()
     setQuotes(dataQuo)
     setConcatenate(true)
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (concatenate) {
@@ -26,7 +26,7 @@ const Character = () => {
       for (let x = 0; x < info.length; x++) {
         let array2 = []
         for (let y = 0; y < quotes.length; y++) {
-          if (quotes[y].author === info[x].name) {
+          if (quotes[y].author == info[x].name) {
             array2.push(quotes[y].quote)
           }
         }
@@ -43,7 +43,7 @@ const Character = () => {
       setLoad(false)
 
     }
-  }, [concatenate]);
+  }, [concatenate])
 
   const handleChange = (e) => {
     setValue(e.target.value)
