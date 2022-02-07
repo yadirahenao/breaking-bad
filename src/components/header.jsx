@@ -1,18 +1,14 @@
 import logo from '../media/logo.png'
-import Search from './search';
 
 const Header = ({ nameButton, link }) => {
   return (
     <header>
       <ul className = 'navbar'>
         <li>
-          <img src={logo} alt='imagen' className='logo' />
-        </li> 
+          <img src={logo} alt='imagen' className='logo mx-8' />
+        </li>        
         <li>
-          {/* <Search/> */}
-        </li>
-        <li>
-          <button className='bg-transparent hover:bg-green-400 text-white font-semibold hover:text-white py-2 px-4 border border-white hover:border-transparent rounded'>   
+          <button className='bg-transparent hover:bg-green-600 text-back font-semibold hover:text-white py-2 px-4 border-double border-4 border-black hover:border-transparent rounded-lg m-8'>   
             <a href={ link }>{ nameButton}</a>  
           </button>
         </li>

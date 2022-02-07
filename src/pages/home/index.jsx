@@ -5,7 +5,7 @@ import Character from "../../components/character";
 const Index = () => {
   return (
     <div>
-      <Header nameButton='Libreria' link='/library' />
+      <Header nameButton='Favorites' link='/library' />
       <Character/>
     </div>
   );
