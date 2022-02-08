@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCharacters, getQuotes } from "../services/getCharacter";
 import Card from "./card";
+import ButtonLoading from "./buttonLoading";
 
 const Character = () => {
 
@@ -55,8 +56,13 @@ const Character = () => {
   })
 
   if (load) {
-    return (<p>cargando</p>)
+    return (<ButtonLoading/>)
   }
+
+  const handleNextPage = () => {
+
+  }
+
   return (
     <section className="border-black">
       <ul className="border-black">
@@ -66,13 +72,19 @@ const Character = () => {
             onChange={handleChange}
             value={value}
             placeholder='Search for a character'
-            className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline m-3"
-          />
+            className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline m-3" />
         </li>
         <li className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 border-black bg-black h-1/5">
-           {filterNames.map(Character => <Card key={Character.char_id} {...Character} />)}
+          {filterNames.map(Character => <Card key={Character.char_id} {...Character} />)}
         </li>
-      </ul>
+        <li className="flex flex-wrap justify-center bg-black border-black">
+          <button
+            onClick={handleNextPage}
+            className="border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6 bg-white">
+            Get next page
+          </button>
+        </li>
+      </ul>      
     </section>
 
   );
