@@ -12,6 +12,7 @@ const Character = () => {
   const [characters, setCharacters] = useState([]);
 
   // Llamado de personajes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const dataCha = await getCharacters()
     setInfo(dataCha)
@@ -43,7 +44,7 @@ const Character = () => {
       setLoad(false)
 
     }
-  }, [concatenate])
+  }, [concatenate, info, quotes])
 
   const handleChange = (e) => {
     setValue(e.target.value)

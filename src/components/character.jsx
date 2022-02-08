@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getCharacters, getQuotes } from "../services/getCharacter";
 import Card from "./card";
 import ButtonLoading from "./buttonLoading";
+import Pagination from "./pagination";
 
 const Character = () => {
 
@@ -11,80 +12,82 @@ const Character = () => {
   const [concatenate, setConcatenate] = useState(false);
   const [load, setLoad] = useState(true);
   const [characters, setCharacters] = useState([]);
+  const [currentCharacters, setCurrentCharacters] = useState([]);
+  const [filterNames, setFilterNames] = useState([]);
 
   // Llamado de personajes
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    const dataCha = await getCharacters()
-    setInfo(dataCha)
-    const dataQuo = await getQuotes()
-    setQuotes(dataQuo)
-    setConcatenate(true)
-  }, []);
+  useEffect(() => {
+
+    const callData = async () => {
+      const dataCha = await getCharacters()
+      const dataQuo = await getQuotes()
+      setInfo(dataCha)
+      setQuotes(dataQuo)
+      setConcatenate(true)
+    }
+    callData()
+  }, [])
 
   useEffect(() => {
-    if (concatenate) {
-      const array = []
-      for (let x = 0; x < info.length; x++) {
-        let array2 = []
-        for (let y = 0; y < quotes.length; y++) {
-          if (quotes[y].author === info[x].name) {
-            array2.push(quotes[y].quote)
+    const some = () => {
+      if (concatenate) {
+        const characterQuotes = info.reduce((quotesAccum, character) => {
+          const phrases = quotes
+            .filter((quote) => quote.author === character.name)
+            .map((quote) => quote.quote)
+          return [...quotesAccum,
+          {
+            ...character,
+            quotes: phrases
           }
-        }
-        array.push(array2)
+          ]
+        }, [])
+        setCharacters(characterQuotes)
+        setFilterNames(characterQuotes)
+        setLoad(false)
       }
-      const character = info.filter((oneCharacter, Index) => {
-        oneCharacter.quotes = array[Index]
-        return (
-          oneCharacter
-        )
-      })
+    }
+    some()
+  }, [concatenate])
 
-      setCharacters(character)
-      setLoad(false)
+  useEffect(() => {
+    if (value) {
+      let filter = characters.filter(person => {
+        return person.name.toLowerCase().includes(value.toLowerCase())
+      })
+      if (filter) {
+        setFilterNames(filter)
+      } else {
+        setFilterNames(characters)
+      }
 
     }
-  }, [concatenate, info, quotes]);
+  }, [value])
 
-  const handleChange = (e) => {
-    setValue(e.target.value)
-  }
 
-  const filterNames = characters.filter(person => {
-    return person.name.toLowerCase().includes(value.toLowerCase())
-  })
-
-  if (load) {
+   if (load) {
     return (<ButtonLoading/>)
   }
-
-  const handleNextPage = () => {
-
-  }
-
   return (
-    <section className="border-black">
+    <section>
       <ul className="border-black">
         <li className="flex flex-wrap justify-center bg-black border-black">
           <input
             type='texte'
-            onChange={handleChange}
+            onChange={(e) => { setValue(e.target.value) }}
             value={value}
-            placeholder='Search for a character'
-            className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline m-3" />
+            placeholder='Search'
+            className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline m-3"
+          />
         </li>
         <li className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 border-black bg-black h-1/5">
-          {filterNames.map(Character => <Card key={Character.char_id} {...Character} />)}
+          {currentCharacters.map(Character => <Card key={Character.char_id} {...Character} />)}
         </li>
-        <li className="flex flex-wrap justify-center bg-black border-black">
-          <button
-            onClick={handleNextPage}
-            className="border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6 bg-white">
-            Get next page
-          </button>
+        <li>
+          <Pagination filterNames={filterNames} setCurrentCharacters={setCurrentCharacters} />
         </li>
       </ul>      
+      
     </section>
 
   );
