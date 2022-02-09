@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({ img, name, nickname, birthday, quotes }) => {
   return (
-    <section className="w-full min-h-screen bg-black border-black">
+    <section className="min-h-0 bg-black border-black">
       <div className="flex flex-wrap justify-center bg-black border-black ">
         <div className="flex flex-col bg-green-100 rounded-lg w-full m-3 justify-center h-1/5">
           <img src={img} alt={name} className="object-scale-down- rounded-md h-96 w-72 m-auto mt-5 mb-5" />

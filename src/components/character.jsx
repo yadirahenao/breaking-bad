@@ -83,11 +83,13 @@ const Character = () => {
         <li className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 border-black bg-black h-1/5">
           {currentCharacters.map(Character => <Card key={Character.char_id} {...Character} />)}
         </li>
-        <li>
-          <Pagination filterNames={filterNames} setCurrentCharacters={setCurrentCharacters} />
+        <li className="flex flex-wrap justify-center bg-black">
+          <Pagination
+            filterNames={filterNames}
+            setCurrentCharacters={setCurrentCharacters}
+          />       
         </li>
-      </ul>      
-      
+      </ul> 
     </section>
 
   );
