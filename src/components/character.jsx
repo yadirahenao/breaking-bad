@@ -17,7 +17,6 @@ const Character = () => {
 
   // Llamado de personajes
   useEffect(() => {
-
     const callData = async () => {
       const dataCha = await getCharacters()
       const dataQuo = await getQuotes()
@@ -48,7 +47,7 @@ const Character = () => {
       }
     }
     some()
-  }, [concatenate])
+  }, [concatenate, info, quotes])
 
   useEffect(() => {
     if (value) {
@@ -60,9 +59,8 @@ const Character = () => {
       } else {
         setFilterNames(characters)
       }
-
     }
-  }, [value])
+  }, [characters, value])
 
 
    if (load) {
@@ -84,14 +82,11 @@ const Character = () => {
           {currentCharacters.map(Character => <Card key={Character.char_id} {...Character} />)}
         </li>
         <li className="flex flex-wrap justify-center bg-black">
-          <Pagination
-            filterNames={filterNames}
-            setCurrentCharacters={setCurrentCharacters}
+          <Pagination filterNames={filterNames ? characters : filterNames} setCurrentCharacters={setCurrentCharacters}
           />       
         </li>
       </ul> 
     </section>
-
   );
 };
 

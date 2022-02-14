@@ -1,4 +1,5 @@
 import React from "react";
+import StarRating from "./starRating";
 
 const Card = ({ img, name, nickname, birthday, quotes }) => {
   return (
@@ -11,7 +12,7 @@ const Card = ({ img, name, nickname, birthday, quotes }) => {
           <h3 className="text-center pb-5">Birthday: {birthday}</h3>
           <div className="overflow-y-auto h-24">
             <h3 className="text-center pb-5 font-bold"> Quotes:</h3>
-            <h3 className="text-center pb-5"> {quotes.map((text) => <><p>{text}</p><br /></>)}</h3>
+            <h3 className="text-center pb-5"> {quotes.map((text) => <><p>{text} <StarRating /></p><br /></>)}</h3>
           </div>
         </div>
       </div>
