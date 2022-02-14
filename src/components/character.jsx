@@ -53,12 +53,8 @@ const Character = () => {
     if (value) {
       let filter = characters.filter(person => {
         return person.name.toLowerCase().includes(value.toLowerCase())
-      })
-      if (filter) {
-        setFilterNames(filter)
-      } else {
-        setFilterNames(characters)
-      }
+      })      
+        setFilterNames(filter)      
     }
   }, [characters, value])
 
@@ -72,7 +68,12 @@ const Character = () => {
         <li className="flex flex-wrap justify-center bg-black border-black">
           <input
             type='texte'
-            onChange={(e) => { setValue(e.target.value) }}
+            onChange={(e) => {
+              if (e.target.value.length === 0) {
+                setFilterNames(characters)
+              }
+              setValue(e.target.value)
+            }}
             value={value}
             placeholder='Search'
             className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline m-3"
@@ -82,8 +83,7 @@ const Character = () => {
           {currentCharacters.map(Character => <Card key={Character.char_id} {...Character} />)}
         </li>
         <li className="flex flex-wrap justify-center bg-black">
-          <Pagination filterNames={filterNames ? characters : filterNames} setCurrentCharacters={setCurrentCharacters}
-          />       
+          <Pagination filterNames={filterNames} setCurrentCharacters={setCurrentCharacters} />      
         </li>
       </ul> 
     </section>
