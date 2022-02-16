@@ -64,8 +64,8 @@ const Character = () => {
   }
   return (
     <section>
-      <ul className="border-black">
-        <li className="flex flex-wrap justify-center bg-black border-black">
+      <ul className="border-black bg-black">
+        <li className="flex flex-wrap justify-center bg-black border-black ">
           <input
             type='texte'
             onChange={(e) => {
@@ -76,10 +76,10 @@ const Character = () => {
             }}
             value={value}
             placeholder='Search'
-            className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline m-3"
+            className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline m-4"
           />
         </li>
-        <li className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 border-black bg-black h-1/5">
+        <li className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 border-black bg-black ">
           {currentCharacters.map(Character => <Card key={Character.char_id} {...Character} />)}
         </li>
         <li className="flex flex-wrap justify-center bg-black">
