@@ -15,7 +15,6 @@ const Card = ({ img, name, nickname, birthday, quotes }) => {
           </div>
         </div>
       </div>
-
     </section>
   );
 };
