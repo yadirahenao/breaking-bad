@@ -17,9 +17,8 @@ const Login = () => {
 
     const submitForm = (e)=>{
         e.preventDefault();
-        login()
+        login({username, password})
   };
-
 
     return (
         <div className='flex flex-col items-center justify-center w-full h-full p-10'>
