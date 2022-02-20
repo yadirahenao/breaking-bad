@@ -1,35 +1,38 @@
-import React, { useState } from 'react';
-import { FaStar } from 'react-icons/fa'
+import React from 'react';
+import useFormData from '../hooks/useFormData';
 
-const CommentBox = () => {
-  const [rating, setRating] = useState(null);
-  const [hover, setHover] = useState(null);
+const CommentBox = () => {    
+  const { form, updateFormData } = useFormData();
 
-  return (
-    <div className='flex flex-wrap justify-center'>
-      {[...Array(5)].map((star, i) => {
-        const ratingValue = i + 1;
+  const submitForm = (e)=>{
+    e.preventDefault();
+  };
 
-        return (
-          <label>
-            <input
-              type='radio'
-              name='rating' 
-              value={ratingValue}
-              onClick={() => setRating(ratingValue)}
-              className='in-line appearance-none'
-              />
-            <FaStar
-              onMouseEnter={() => setHover(ratingValue)}
-              onMouseLeave={() => setHover(null)}
-              className='cursor-pointer'
-              color = {ratingValue <= (hover || rating) ? "#ffc107" : "#b0b2b8"}
-            />
-          </label>
-        );   
-      })}
-    </div>
+  return (    
+      <form
+        className='flex flex-col m-2 items-center'
+        onSubmit={submitForm}
+        onChange={updateFormData}
+        ref={form}
+      >
+        <label > 
+          <input
+          type='text'          
+          name='rating'        
+          placeholder='comment'
+          className='bg-gray-100 p-2 rounded-full'/>    
+      </label>  
+      <button
+          type='submit'
+          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full w-auto m-1'
+        >
+          Save comment
+        </button>
+      </form>
   );
+  
+
+ 
 };
 
 export default CommentBox;
