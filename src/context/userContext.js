@@ -1,14 +1,20 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 
-const Context = React.createContext({})
+export const Context = React.createContext({})
 
-export function UserContextProvider ({children}) {
-  const [jwt, setJWT] = useState(null)
+export function UserContextProvider({ children }) {
+  const [id, setId] = useState(null)
+  const [name, setName] = useState(null);
+  const [lastName, setLastName] = useState(null);
 
 
-  return <Context.Provider value={{   
-    jwt,
-    setJWT
+  return <Context.Provider value={{
+    id,
+    setId,
+    name,
+    setName,
+    lastName,
+    setLastName
   }}>
     {children}
   </Context.Provider>
